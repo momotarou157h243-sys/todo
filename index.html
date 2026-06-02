@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>マイ ToDo アプリ</title>
+
+  <!-- PWA（ホーム画面に追加できるアプリ）設定 -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#667eea" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="マイ ToDo" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>📝 マイ ToDo</h1>
+      <p>日時を決めて、カレンダーで予定を管理しよう！</p>
+    </header>
+
+    <!-- リスト管理バー -->
+    <div class="list-bar">
+      <div class="list-row">
+        <label class="list-label" for="listSelect">リスト:</label>
+        <select id="listSelect"></select>
+        <button class="icon-btn" id="newListBtn" title="新しいリストを作成">＋</button>
+        <button class="icon-btn" id="renameListBtn" title="リスト名を変更">✏️</button>
+        <button class="icon-btn danger" id="deleteListBtn" title="このリストを削除">🗑️</button>
+      </div>
+      <div class="file-row">
+        <button class="file-btn" id="exportBtn">💾 ファイルに保存</button>
+        <button class="file-btn" id="importBtn">📂 ファイルから読み込み</button>
+        <input type="file" id="importInput" accept=".json,application/json" style="display:none" />
+      </div>
+    </div>
+
+    <div class="view-tabs">
+      <button class="view-btn active" data-view="list">📋 リスト</button>
+      <button class="view-btn" data-view="calendar">📅 カレンダー</button>
+    </div>
+
+    <!-- 入力エリア -->
+    <div class="input-area">
+      <div class="row">
+        <input type="text" id="taskInput" placeholder="やることを入力..." />
+      </div>
+      <div class="datetime-row">
+        <div class="datetime-field">
+          <label for="startInput">開始日時</label>
+          <input type="datetime-local" id="startInput" />
+        </div>
+        <div class="datetime-field">
+          <label for="dueInput">完了予定日時</label>
+          <input type="datetime-local" id="dueInput" />
+        </div>
+      </div>
+      <button class="add-btn" id="addBtn">＋ タスクを追加</button>
+    </div>
+
+    <!-- リストビュー -->
+    <div id="listView">
+      <div class="filters">
+        <button class="filter active" data-filter="all">すべて</button>
+        <button class="filter" data-filter="active">未完了</button>
+        <button class="filter" data-filter="done">完了</button>
+      </div>
+
+      <ul id="taskList"></ul>
+
+      <footer>
+        <span id="count">0 件のタスク</span>
+        <button id="clearDone">完了済みを削除</button>
+      </footer>
+    </div>
+
+    <!-- カレンダービュー -->
+    <div id="calendarView" class="calendar hidden">
+      <div class="cal-nav">
+        <button id="prevMonth">‹</button>
+        <h2 id="calTitle"></h2>
+        <button id="nextMonth">›</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+  </div>
+
+  <!-- テーマ切り替えアイコン（画面右上） -->
+  <button class="theme-fab" id="themeFab" title="デザインを切り替え" aria-label="デザインを切り替え">🎨</button>
+
+  <!-- オーバーレイ＋テーマ選択ポップアップ -->
+  <div class="overlay hidden" id="themeOverlay">
+    <div class="theme-popup" id="themePopup" role="dialog" aria-label="デザインの切り替え">
+      <h3>🎨 デザインを選ぶ</h3>
+      <button class="theme-option" data-theme-btn="default">
+        <span class="swatch swatch-default"></span>
+        <span class="theme-option-label">デフォルト</span>
+        <span class="theme-check">✓</span>
+      </button>
+      <button class="theme-option" data-theme-btn="dark">
+        <span class="swatch swatch-dark"></span>
+        <span class="theme-option-label">ダークモード</span>
+        <span class="theme-check">✓</span>
+      </button>
+      <button class="theme-option" data-theme-btn="light">
+        <span class="swatch swatch-light"></span>
+        <span class="theme-option-label">ホワイトモード</span>
+        <span class="theme-check">✓</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
