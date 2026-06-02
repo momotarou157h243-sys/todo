@@ -3,7 +3,7 @@
 
 // キャッシュ名。アプリを更新したら数字（v1 → v2 ...）を上げると、
 // 古いキャッシュが破棄され、新しいファイルが読み込まれる。
-const CACHE_NAME = "todo-app-v1";
+const CACHE_NAME = "todo-app-v2";
 
 // オフラインでも使えるように保存しておくファイル一覧
 const ASSETS = [
